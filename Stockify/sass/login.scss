@@ -1,0 +1,71 @@
+
+body {
+    background-color: #263C7E;
+    color: whitesmoke;
+}
+
+img {
+  max-width: 28%;
+}
+
+.container {
+    background-color: #263C7E;
+    color: whitesmoke;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 0.25fr 3fr;
+    gap: 5%;
+    box-sizing: border-box;
+}
+
+
+.content-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.content-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.slogan {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    font-size: 1.5em;
+    /* vertical align in the div */
+    display: flex;
+    align-items: top;
+    justify-content: center;
+}
+
+.container-form {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown) {
+  border: 2px solid red;
+}
+
+input:invalid:focus:not(:placeholder-shown),
+textarea:invalid:focus:not(:placeholder-shown) {
+  outline: none;
+}
+
+input:invalid:not(:placeholder-shown)::placeholder,
+textarea:invalid:not(:placeholder-shown)::placeholder {
+  color: red;
+}
+
+#my-form:invalid:not(:placeholder-shown) ~ #popup {
+  display: block;
+}
+
+  

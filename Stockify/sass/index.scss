@@ -1,0 +1,91 @@
+@use "constants";
+
+#left-content {
+    width: constants.$sidebar-width;
+    height: constants.$sidebar-height;
+    position: fixed;
+    top: 0;
+    left: 0;
+    // border: 1px solid black;
+
+    background-color: constants.$background-color-sidebar;
+  }
+  
+  #right-content {
+    width: constants.$right-content-width;
+    height: constants.$right-content-height;
+    position: fixed;
+    
+    top: 0;
+    left: constants.$sidebar-width;
+    // border: 1px solid black;
+    background-color: constants.$background-color-content;
+  }
+
+  #sidebar {
+    margin-top: calc(constants.$header-height + constants.$margin-top);
+  }
+  
+  #header {
+    height: constants.$header-height;
+    width: constants.$header-width;
+    z-index: 1;
+    // position: absolute;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // align-content: center;
+    // text-align: center;
+    // border: 1px solid black;
+    background-color: constants.$background-color-header;
+  }
+
+  #search-results {
+    width: constants.$search-bar-width;
+    position: relative;
+    left: 25%;
+    z-index: 2;
+    background: white
+    
+  }
+ 
+  
+  #center-content-footer {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    position: absolute;
+    top: constants.$header-height;
+    left: 0;
+    // border: 1px solid black;
+  }
+  
+  #center-content {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // border: 1px solid black;
+  }
+  
+  #footer {
+    height: 2%;
+    width: 100%;
+    z-index: 3;
+    bottom: 0;
+    background-color: constants.$background-color-footer;
+    // center on the page the text inside the footer
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    position: absolute;
+    padding-bottom: 1%;
+
+
+  }
+  
+  span {
+    display: block;
+  }

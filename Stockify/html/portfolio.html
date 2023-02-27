@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Inicio</title>
+</head>
+<body>
+
+
+
+  <div class="main">
+    <h1>Cartera:</h1>
+
+    <aside>
+      <details>
+        <summary>
+          Añadir valores:
+        </summary>
+        <form action="portfolio.html" method="post" onsubmit="event.preventDefault(); handleFormSubmit();">
+          <br>
+          <label for="symbol">Símbolo:</label><br>
+          <input type="text" id="symbol" name="symbol" placeholder="Ticker symbol de la acción" required><br><br>
+          <label for="date">Fecha:</label><br>
+          <input type="date" id="date" name="date" required><br><br>
+          <label for="quantity">Cantidad:</label><br>
+          <input type="number" id="quantity" name="quantity" placeholder="Número de acciones compradas" required><br><br>
+          <label for="price">Precio:</label><br>
+          <input type="number" id="price" name="price" placeholder= "$" required><br><br>
+    
+          <input type="submit" id="submit">
+        </form>
+      </details>
+    </aside>
+
+    <br><br>
+      <table>
+        <tr>
+          <th>Fecha de compra</th>
+          <th>Símbolo</th>
+          <th>Número de acciones</th>
+          <th>Precio de compra</th>
+        </tr>
+        <!-- complete with some trades ondifferent dates and different stocks and different prices -->
+        <tr>
+          <td>2020-01-01</td>
+          <td>MSFT</td>
+          <td>58</td>
+          <td>180</td>
+        </tr>
+        <tr>
+          <td>2021-01-01</td>
+          <td>AAPL</td>
+          <td>93</td>
+          <td>102</td>
+        </tr>
+        <tr>
+          <td>2021-06-01</td>
+          <td>AMZN</td>
+          <td>10</td>
+          <td>86</td>
+        </tr>
+        <tr>
+          <td>2020-01-01</td>
+          <td>NVDA</td>
+          <td>23</td>
+          <td>120</td>
+        </tr>
+
+      </table>
+
+    
+  
+  </div>
+
+</body>
+
+</html>

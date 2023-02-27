@@ -1,0 +1,71 @@
+.sidebar-button {
+  font-size: 1.5vw;
+  // padding: 6px 8px 6px 16px;
+  padding: 3% 7% 3% 15%;
+  margin-bottom: 10%;
+  // margin-left: 10%;
+
+  display: block;
+  // remove border
+  border: none;
+  // remove underline
+  text-decoration: none;
+  // color of the text
+  
+
+  // rounded corners
+  border-radius: 0 25px 25px 0;
+}
+
+.sidebar-button-unselected {
+  background: none;
+  border: none;
+  text-decoration: none;
+  color: #818181;
+}
+
+.sidebar-button-unselected:hover {
+  color: #f1f1f1;
+  background: rgb(70,70,70);
+}
+
+
+.sidebar-button-selected, .sidebar-button-selected:hover {
+  background: rgb(99,79,54);
+  color: rgb(241,158,58);
+}
+
+
+
+// inside a sidebar div theres a img logo with the class name logo
+.sidebar .logo {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  padding: 10%;
+}
+
+
+
+// @media screen and (min-width: 767px) {
+
+  
+
+    
+
+
+// }
+//   @media screen and (max-width: 767px) {    
+//     .sidebar button {
+//     font-size: 1vw;
+//     padding: 6px;
+//     text-decoration: none;
+//     color: #818181;
+//     display: block;
+//     }
+    
+//     .sidebar button:hover {
+//     color: #f1f1f1;
+//     }
+//     }

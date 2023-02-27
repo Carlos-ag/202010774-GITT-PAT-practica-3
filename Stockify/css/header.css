@@ -1,0 +1,22 @@
+#header-logo {
+  width: 9vh;
+  height: 9vh;
+  background-image: url("../assets/images/logo.jpeg");
+  background-size: cover;
+  margin-right: 0.85vw;
+}
+
+#header-logo:hover {
+  cursor: pointer;
+}
+
+#header-search-bar {
+  position: relative;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  border: 1px solid gray;
+  border-radius: 20px;
+  font-size: 1em;
+}/*# sourceMappingURL=header.css.map */

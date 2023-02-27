@@ -1,0 +1,148 @@
+@use "constants";
+
+html {
+  font-size: 1.3vw;
+}
+
+.main {
+    margin: constants.$margin-main;
+    margin-bottom: 9%;
+}
+
+* {
+  font-family: "Lato", sans-serif;
+}
+
+.search-result {
+  padding: 2%;
+  display: flex;
+  // text color black
+  color: black;
+  // make it unselectable
+  user-select: none;
+  // align to the left
+  text-align: left; 
+    
+  
+}
+
+.search-result:hover {
+  cursor: pointer;
+  background-color: constants.$secondary-color;
+}
+
+body {
+    background-color: constants.$primary-color;
+    color: whitesmoke;
+}
+
+a {
+    color: aliceblue;
+}
+
+a:visited {
+    color: lightgray;
+}
+
+a:hover, a:active {
+    color: #eee;
+}
+
+
+  textarea {
+    resize: none;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: constants.$ligh-gray;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: constants.$dark-gray;
+  }
+
+  table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  td, th {
+    text-align: center;
+  }
+
+  td, th {
+    vertical-align: middle;
+  }
+
+  .footer {
+    margin-top: 2%;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  input[type=submit] {
+    background-color: whitesmoke;
+    color: constants.$primary-color;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #6c757d;
+  } 
+
+
+.plotly-graph {
+  height: 70vh;
+}
+
+.link-news {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background-color: constants.$dark-gray;
+    margin-bottom: 1%;
+  }
+  
+  .link-news:hover {
+    background-color: constants.$ligh-gray;
+  }
+  
+  .link-news > * {
+    margin: 10px;
+  }
+  
+  .link-news > img {
+    width: 10%;
+    object-fit: cover; 
+  }
+  
+  .link-news > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .link-news > div > * {
+    text-align: left;
+    margin: 0;
+  }
+  
+  .link-news > div > h3 {
+    font-weight: bold;
+  }
+  
+  .link-news > div > p {
+    font-style: italic;
+  }
+
+

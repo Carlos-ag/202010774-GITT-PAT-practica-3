@@ -1,0 +1,60 @@
+@use "constants";
+
+// do the css for this html
+// <div id = "stock-info">
+//         <div id = "stock-info-header">
+//             <div id = "stock-info-header-name"></div>
+//             <div id = "stock-info-header-price"></div>
+//         </div>
+//         <div id = "stock-info-body">
+//             <canvas id="chart"></canvas>
+//         </div>
+//     </div>
+
+#stock-info {
+    // i want the stock info to be in the center of the page
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    // background-color: rgb(99,79,54);
+    border-radius: 25px;
+    
+    margin: 5% 10% 0% 10%;
+
+    
+}
+
+#stock-info-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+}
+
+#stock-info-header-name {
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+#stock-info-header-price {
+    font-size: 2vw;
+}
+
+// the chart has to be centered on the page
+#stock-info-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+}
+
+#chart {
+    width: 100%;
+    height: 100%;
+}

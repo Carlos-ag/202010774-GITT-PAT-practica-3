@@ -1,0 +1,28 @@
+$primary-color: #333;
+$secondary-color: #eee;
+$background-color: #111;
+$secondary-background-color: #222;
+$ligh-gray:#6c757d;
+$dark-gray: #343a40;
+
+// color from RGB
+$background-color-content: rgb(30,30,30);
+$background-color-header: rgb(47,48,51);
+$background-color-footer: $background-color-header;
+$background-color-sidebar: rgb(54,54,54);
+
+$sidebar-width: 15vw;
+$sidebar-height: 100vh;
+
+$right-content-width: calc(100vw - $sidebar-width);
+$right-content-height: 100vh;
+
+$header-height: 10vh;
+$header-width: 100%;
+
+$search-bar-height: 50%;
+$search-bar-width: 50%;
+
+$margin-top: 10%;
+$margin-main: 2%;
+

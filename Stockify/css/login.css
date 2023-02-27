@@ -1,0 +1,133 @@
+body {
+  background-color: #263C7E;
+  color: whitesmoke;
+}
+
+img {
+  max-width: 28%;
+}
+
+.container {
+  background-color: #263C7E;
+  color: whitesmoke;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 0.25fr 3fr;
+  gap: 5%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.content-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.content-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.slogan {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-size: 1.5em;
+  /* vertical align in the div */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: top;
+      -ms-flex-align: top;
+          align-items: top;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container-form {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+input:invalid:not(:-moz-placeholder-shown), textarea:invalid:not(:-moz-placeholder-shown) {
+  border: 2px solid red;
+}
+
+input:invalid:not(:-ms-input-placeholder), textarea:invalid:not(:-ms-input-placeholder) {
+  border: 2px solid red;
+}
+
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown) {
+  border: 2px solid red;
+}
+
+input:invalid:focus:not(:-moz-placeholder-shown), textarea:invalid:focus:not(:-moz-placeholder-shown) {
+  outline: none;
+}
+
+input:invalid:focus:not(:-ms-input-placeholder), textarea:invalid:focus:not(:-ms-input-placeholder) {
+  outline: none;
+}
+
+input:invalid:focus:not(:placeholder-shown),
+textarea:invalid:focus:not(:placeholder-shown) {
+  outline: none;
+}
+
+input:invalid:not(:placeholder-shown)::-webkit-input-placeholder, textarea:invalid:not(:placeholder-shown)::-webkit-input-placeholder {
+  color: red;
+}
+
+input:invalid:not(:placeholder-shown)::-moz-placeholder, textarea:invalid:not(:placeholder-shown)::-moz-placeholder {
+  color: red;
+}
+
+input:invalid:not(:placeholder-shown):-ms-input-placeholder, textarea:invalid:not(:placeholder-shown):-ms-input-placeholder {
+  color: red;
+}
+
+input:invalid:not(:placeholder-shown)::-ms-input-placeholder, textarea:invalid:not(:placeholder-shown)::-ms-input-placeholder {
+  color: red;
+}
+
+input:invalid:not(:-moz-placeholder-shown)::placeholder, textarea:invalid:not(:-moz-placeholder-shown)::placeholder {
+  color: red;
+}
+
+input:invalid:not(:-ms-input-placeholder)::placeholder, textarea:invalid:not(:-ms-input-placeholder)::placeholder {
+  color: red;
+}
+
+input:invalid:not(:placeholder-shown)::placeholder,
+textarea:invalid:not(:placeholder-shown)::placeholder {
+  color: red;
+}
+
+#my-form:invalid:not(:-moz-placeholder-shown) ~ #popup {
+  display: block;
+}
+
+#my-form:invalid:not(:-ms-input-placeholder) ~ #popup {
+  display: block;
+}
+
+#my-form:invalid:not(:placeholder-shown) ~ #popup {
+  display: block;
+}/*# sourceMappingURL=login.css.map */

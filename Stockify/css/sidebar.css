@@ -1,0 +1,34 @@
+.sidebar-button {
+  font-size: 1.5vw;
+  padding: 3% 7% 3% 15%;
+  margin-bottom: 10%;
+  display: block;
+  border: none;
+  text-decoration: none;
+  border-radius: 0 25px 25px 0;
+}
+
+.sidebar-button-unselected {
+  background: none;
+  border: none;
+  text-decoration: none;
+  color: #818181;
+}
+
+.sidebar-button-unselected:hover {
+  color: #f1f1f1;
+  background: rgb(70, 70, 70);
+}
+
+.sidebar-button-selected, .sidebar-button-selected:hover {
+  background: rgb(99, 79, 54);
+  color: rgb(241, 158, 58);
+}
+
+.sidebar .logo {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  padding: 10%;
+}/*# sourceMappingURL=sidebar.css.map */
