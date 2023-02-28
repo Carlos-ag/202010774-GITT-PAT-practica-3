@@ -43,6 +43,7 @@
 
 #stock-info-header-price {
   font-size: 2vw;
+  font-weight: bold;
 }
 
 #stock-info-body {
@@ -62,4 +63,5 @@
 #chart {
   width: 100%;
   height: 100%;
+  background-color: lightgray;
 }/*# sourceMappingURL=stockInfo.css.map */

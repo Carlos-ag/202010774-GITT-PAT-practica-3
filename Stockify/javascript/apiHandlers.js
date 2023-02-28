@@ -1,4 +1,3 @@
-
 function tickerSearch(searchedValue) {
   console.log("busqueda API: ");
   var requestOptions = {
@@ -10,7 +9,7 @@ function tickerSearch(searchedValue) {
     searchResult.innerHTML = "";
 
     let url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="+searchedValue+"&apikey=ZPWHHJ1VEJJFZYLS";
-    url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo"
+    // url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo"
 
 
 
@@ -65,11 +64,13 @@ function getCurrencySymbol(currency) {
 
 
 function tickerSearched(tickerSearched, stockName, currency) {
+  const loaderCenterScreen = document.getElementById("loader-right-screen");
+  loaderCenterScreen.style.visibility = "visible";
+
   // =================== CONTENT ===================
-  // show the element with class "loading"
-  $(".loading").show();
+  
   // hide the element with class "content"
-  $(".content").hide();  
+  $("#content").hide(); 
   document.title = stockName + " (" + tickerSearched + ") - Stockify";
   $("#content").load("../html/stockInfo.html");  
   
@@ -80,7 +81,7 @@ function tickerSearched(tickerSearched, stockName, currency) {
   };
 
   let url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+tickerSearched+"&outputsize=full&apikey=ZPWHHJ1VEJJFZYLS";
-  url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo"
+  // url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo"
   
   fetch(url, requestOptions)
     .then(response => response.text())
@@ -93,20 +94,11 @@ function tickerSearched(tickerSearched, stockName, currency) {
       let latestData = timeSeries[latestDate];
       let latestClose = latestData["4. close"];
 
-  //     <div id = "stock-info">
-  //     <div id = "stock-info-header">
-  //         <div id = "stock-info-header-name"></div>
-  //         <div id = "stock-info-header-price"></div>
-  //     </div>
-  //     <div id = "stock-info-body">
-  //         <canvas id="chart"></canvas>
-  //     </div>
-  // </div>
 
       let stockInfoHeaderName = document.getElementById("stock-info-header-name");
       stockInfoHeaderName.innerHTML = stockName + " (" + tickerSearched + ")";
       let stockInfoHeaderPrice = document.getElementById("stock-info-header-price");
-      stockInfoHeaderPrice.innerHTML = getCurrencySymbol(currency) + latestClose;
+      stockInfoHeaderPrice.innerHTML = getCurrencySymbol(currency) + "&nbsp;" + latestClose ;
 
       // chart with chart.js
       let chart = document.getElementById("chart").getContext("2d");
@@ -138,14 +130,9 @@ function tickerSearched(tickerSearched, stockName, currency) {
       let chartInstance = new Chart(chart, chartData);
 
       // hide the element with class "loading"
-      $(".loading").hide();
+      loaderCenterScreen.style.visibility = "hidden";
       // show the element with class "content"
-      $(".content").show();
-
-
-
-
-
+      $("#content").show();
 
 
     })
