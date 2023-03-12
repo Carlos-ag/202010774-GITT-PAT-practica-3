@@ -41,9 +41,9 @@ function tickerSearch(searchedValue) {
     .catch(error => { console.log('error', error) });
 }
 
+////////////////////////////////////////////////////////////////////////
 
-
-///////////////////////// 
+///////////////////////////////////////////
 
 function getCurrencySymbol(currency) {
   switch (currency) {
@@ -58,40 +58,26 @@ function getCurrencySymbol(currency) {
   }
 }
 
-
-
-function createChartData(dates, mapStockData) {
-  mapStockData
-  let chartData = {
-    type: "line",
-    data: {
-      labels: dates.reverse(), // reverse the order of the dates array
-      datasets: [{
-        label: "Price",
-        data: dates.map(date => {
-          mapStockData[date]["5. adjusted close"]}), // reverse the order of the data array
-        backgroundColor: "rgba(0, 0, 0, 0)",
-        borderColor: "rgba(241, 158, 58, 0.5)",
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        xAxes: [{
-          ticks: {
-            reverse: true // set reverse to true to invert x-axis labels
-          }
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
-      }
-    }
+function createChartData(mapStockData) {
+  const dates = Object.keys(mapStockData);
+  const chartData = {
+    labels: dates.reverse(),
+    datasets: [{
+      label: "Stock Data",
+      data: [],
+      fill: false,
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      borderColor: "rgba(241, 158, 58, 0.5)",
+      borderWidth: 1
+    }]
   };
+
+  chartData.labels.forEach(date => {
+    const stockData = mapStockData[date];
+    const closePrice = parseFloat(stockData["5. adjusted close"]);
+    chartData.datasets[0].data.push(closePrice);
+  });
+
   return chartData;
 }
 
@@ -99,62 +85,57 @@ function createChartData(dates, mapStockData) {
 
 
 function filterData(period) {
-  console.log(mapStockData);
-  let filteredDates = [];
   let filteredData = {};
 
-  if (period == "max") {
-    filteredDates = dates;
+  if (period === "max") {
     filteredData = mapStockData;
   }
+  else if (period === "1d"){
+    let date = dates[0];
+    filteredData[date] = mapStockData[date];
+  }
   else {
-    let today = new Date();
-    let todayString = today.toISOString().split("T")[0];
-    let todayIndex = dates.indexOf(todayString);
     let numberOfDays = 0;
 
     switch (period) {
-      case "1d":
-        numberOfDays = 1;
-        break;
       case "5d":
         numberOfDays = 5;
         break;
       case "1m":
-        numberOfDays = 30;
+        numberOfDays = 30 - 2*4;
         break;
       case "3m":
-        numberOfDays = 90;
+        numberOfDays = 90 - 2*4*3;
         break;
       case "6m":
-        numberOfDays = 180;
+        numberOfDays = 180 - 2*4*6;
         break;
       case "1y":
-        numberOfDays = 365;
+        numberOfDays = 365 - 2*4*12;
         break;
       case "5y":
-        numberOfDays = 1825;
+        numberOfDays = 1825 - 2*4*12*5;
         break;
       default:
         numberOfDays = 0;
     }
 
-    let startIndex = todayIndex - numberOfDays;
-    if (startIndex < 0) {
-      startIndex = 0;
-    }
+    let filteredDates = dates.slice().reverse().slice(-numberOfDays);
+ 
+      for (let i = filteredDates.length - 1; i >= 0; i--) {
 
-    filteredDates = dates.slice(startIndex, todayIndex + 1);
-    filteredDates.reverse();
-
-    for (let i = 0; i < filteredDates.length; i++) {
       let date = filteredDates[i];
       filteredData[date] = mapStockData[date];
     }
   }
-  console.log(filteredData);
-  return { dates: filteredDates, data: filteredData };
+
+  return filteredData;
 }
+
+
+
+
+
 
 
 
@@ -197,8 +178,7 @@ function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
   };
 
   let url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + tickerSearched + "&outputsize=full&adjusted=true&apikey=ZPWHHJ1VEJJFZYLS";
-  // url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo"
-
+  
   fetch(url, requestOptions)
     .then(response => response.text())
     .then(result => {
@@ -226,24 +206,46 @@ function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
 
 
     })
-    .catch(error => console.log('error', error));
+    .catch(error => {
+      console.log('error', error);
+      let stockInfoHeaderName = document.getElementById("stock-info-header-name");
+      stockInfoHeaderName.innerHTML = "There was an error loading the stock data.";
+      stopLoading();
+
+    });
 
   // =================== CONTENT ===================
 }
 
+
 var chartInstance = null;
 function createChart(period) {
-  // let filteredData = filterData(period);
-  let filteredData = mapStockData;
-  dates = filteredData.dates;
-  mapStockData = filteredData.data;
-  let chartData = createChartData(dates, mapStockData);
+  console.log(period);
+  console.log(mapStockData);
+  let filteredData = filterData(period);
+  console.log(filteredData);
+  // let filteredData = mapStockData;
+  let chartData = createChartData(filteredData);
 
-  let chart = document.getElementById("chart").getContext("2d");
+  const ctx = document.getElementById('chart').getContext('2d');
   if (chartInstance) {
     chartInstance.destroy();
   }
-  chartInstance = new Chart(chart, chartData);
+  chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: chartData,
+    options: {
+      responsive: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+  
 
 }
 

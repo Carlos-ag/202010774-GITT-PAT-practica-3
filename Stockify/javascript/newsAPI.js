@@ -1,4 +1,4 @@
-const stocksToWatch = ["SPY"];
+var stocksToWatch = ["SPY"];
 function returnStocksToWatchForURL() {
   if (stocksToWatch.length == 0) {
     return "";
@@ -16,7 +16,6 @@ function returnStocksToWatchForURL() {
 
 function beautifyDate(date) {
     // the date looks like this "2023-03-11T00:48:40.000000Z" and we want to make it look like this "11-03-2023 00:48:40"
-    console.log(date);
     const dateArray = date.split("T");
     const dateArray2 = dateArray[0].split("-");
     const dateArray3 = dateArray[1].split(".");
@@ -30,7 +29,6 @@ function loadNewsFeed() {
     fetch(`https://api.marketaux.com/v1/news/all?symbols=${returnStocksToWatchForURL()}&filter_entities=true&language=en&api_token=48to6hG5ktxHQp0EcBCRhkcH3EGXwhfPbJLuqlOI`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         data = data["data"];
         data.forEach(article => {
           const articleHTML = `
@@ -52,4 +50,4 @@ function loadNewsFeed() {
       });
   }
 
-    loadNewsFeed();
+loadNewsFeed();
