@@ -91,13 +91,27 @@ function init() {
   searchBarListener()
 }
 
+// $(document).ready(function () {
+
+//   init();
+// });
 
 
-window.addEventListener('load', function () {
+document.addEventListener("DOMContentLoaded", function(event){
   init();
 });
 
 
+
+
+// window.addEventListener('load', function () {
+//   init();
+// });
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   init();
+// });
 
 
 // ===================

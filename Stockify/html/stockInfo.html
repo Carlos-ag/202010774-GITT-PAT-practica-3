@@ -18,6 +18,26 @@
         <div id = "stock-info-body">
             <canvas id="chart"></canvas>
         </div>
+        <div id="select-time-frame">
+    <!-- create a radio button group with the following data: 1d; 5d; 1m; 6m; 1y; 5y; max -->
+            <input type="radio" id="1d-radio-button" name="time-frame" value="1d">
+            <label for="1d">1d</label><br>
+            <input type="radio" id="5d-radio-button" name="time-frame" value="5d">
+            <label for="5d">5d</label><br>
+            <input type="radio" id="1m-radio-button" name="time-frame" value="1m">
+            <label for="1m">1m</label><br>
+            <input type="radio" id="6m-radio-button" name="time-frame" value="6m">
+            <label for="6m">6m</label><br>
+            <input type="radio" id="1y-radio-button" name="time-frame" value="1y">
+            <label for="1y">1y</label><br>
+            <input type="radio" id="5y-radio-button" name="time-frame" value="5y">
+            <label for="5y">5y</label><br>
+            <input type="radio" id="max-radio-button" name="time-frame" value="max" checked>
+            <label for="max">max</label><br>
+        </div>
     </div>
+
+    <script src="../javascript/apiStocksData.js"></script>
+
 </body>
 </html>
