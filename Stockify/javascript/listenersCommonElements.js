@@ -78,16 +78,11 @@ function searchBarListener() {
   } );
 }
 
-function loadCommonElements() {
-  $("#header").load("../html/header.html");
-  $("#sidebar").load("../html/sidebar.html");
-  $("#footer").load("../html/footer.html");
-}
 
 function init() {
-  sidebarListeners();
   // logoListener();
   loadPage("home");
+  sidebarListeners();
   searchBarListener()
 }
 
@@ -96,10 +91,10 @@ function init() {
 //   init();
 // });
 
-
-document.addEventListener("DOMContentLoaded", function(event){
-  init();
-});
+init();
+// document.addEventListener("DOMContentLoaded", function(event){
+//   init();
+// });
 
 
 
