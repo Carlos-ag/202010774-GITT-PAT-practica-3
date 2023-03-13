@@ -4,6 +4,7 @@ function loadPage(pageName) {
   // set the #content element to the page.html file
   $(".loading").show();
   $("#content").load("../html/" + pageName+ ".html");
+  document.title = pageName.charAt(0).toUpperCase() + pageName.slice(1);
   $(".loading").hide();
   
 
