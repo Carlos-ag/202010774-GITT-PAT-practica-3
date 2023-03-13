@@ -1,4 +1,15 @@
+#logo {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
+  #logo {
+    height: 8vh;
+    position: fixed;
+    z-index: 2;
+    top: 11vh;
+    left: 2.25vw;
+  }
   #left-content {
     width: 100%;
     height: 10vh;
@@ -9,11 +20,10 @@
   }
   #sidebar {
     position: fixed;
-    width: 100%;
-    height: 10vh;
     top: 0;
     left: 0;
-    z-index: 2;
+    width: 100%;
+    height: 10vh;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -31,7 +41,7 @@
   #right-content {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 10vh;
     left: 0;
     background-color: rgb(30, 30, 30);
@@ -40,7 +50,6 @@
     height: 10vh;
     width: 100%;
     z-index: 1;
-    position: fixed;
     background-color: rgb(47, 48, 51);
   }
   #search-results {
@@ -87,7 +96,13 @@
     padding-bottom: 1%;
   }
 }
-@media only screen and (max-width: 600px) and (min-width: 600px) {
+@media only screen and (min-width: 600px) {
+  #logo {
+    height: 8vh;
+    position: fixed;
+    left: 17.25vw;
+    z-index: 2;
+  }
   #left-content {
     width: 15vw;
     height: 100vh;
@@ -141,19 +156,7 @@
     z-index: 3;
     bottom: 0;
     background-color: rgb(47, 48, 51);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -ms-flex-line-pack: center;
-        align-content: center;
-    text-align: center;
-    position: absolute;
+    position: fixed;
     padding-bottom: 1%;
   }
   span {

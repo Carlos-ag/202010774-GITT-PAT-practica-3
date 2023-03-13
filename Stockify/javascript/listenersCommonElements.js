@@ -51,10 +51,10 @@ function sidebarListeners() {
   });
 }
 
-// function logoListener() {
-//   const logo = document.getElementById("header-logo");
-//   logo.addEventListener("click", function () { loadPage("home"); });
-// }
+function logoListener() {
+  const logo = document.getElementById("logo");
+  logo.addEventListener("click", function () { loadPage("home"); });
+}
 
 function searchBarListener() {
   const searchBar = document.getElementById("header-search-bar");
@@ -80,7 +80,7 @@ function searchBarListener() {
 
 
 function init() {
-  // logoListener();
+  logoListener();
   loadPage("home");
   sidebarListeners();
   searchBarListener()

@@ -1,13 +1,24 @@
-.sidebar-button {
-  font-size: 1.5vw;
-  padding: 3% 7% 3% 15%;
-  margin-bottom: 10%;
-  display: block;
-  border: none;
-  text-decoration: none;
-  border-radius: 0 25px 25px 0;
+@media only screen and (max-width: 600px) {
+  .sidebar-button {
+    font-size: 2vw;
+    padding: 2.5%;
+    display: block;
+    border: none;
+    text-decoration: none;
+    border-radius: 25px;
+  }
 }
-
+@media only screen and (min-width: 600px) {
+  .sidebar-button {
+    font-size: 1.5vw;
+    padding: 3% 7% 3% 15%;
+    margin-bottom: 10%;
+    display: block;
+    border: none;
+    text-decoration: none;
+    border-radius: 0 25px 25px 0;
+  }
+}
 .sidebar-button-unselected {
   background: none;
   border: none;
