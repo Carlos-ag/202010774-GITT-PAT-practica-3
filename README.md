@@ -11,7 +11,7 @@ En esta práctica se han implementado varias funcionalidades en la página web S
 - Se han añadido gestión de errores de las APIs, ya que al ser gratuitas, disponen de un límite de peticiones, que se alcanza muy rápido. Para intentar solucionarlo se ha implementado un sistema que dispone de varias API keys y que en caso de que una de ellas se quede sin peticiones, se cambia a otra automáticamente. Aún así, si se llega al límite de peticiones de todas las API keys, se muestra un mensaje de error.
 
 ## Uso:
-Para visualizar la página web desde un navegador se puede acceder al siguiente enlace [Stockify](https://carlos-ag.github.io/202010774-GITT-PAT-practica-2/Stockify/html/index.html)
+Para visualizar la página web desde un navegador se puede acceder al siguiente enlace [Stockify](https://carlos-ag.github.io/202010774-GITT-PAT-practica-3/Stockify/html/index.html)
 
 ## Documentación:
 Para editarla la página web en VSCODE, hay que abrir la carpeta Stockify, que no incluye el README.md.

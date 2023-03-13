@@ -1,5 +1,29 @@
 // this function is called when the user clicks on the search button
 
+var API_KEYS = ["2B176BA76YRHIWDI", "ZPWHHJ1VEJJFZYLS"]
+var apiIndex = 0;
+
+function getAPIKey() {
+  return API_KEYS[apiIndex];
+}
+
+function changeAPIIndex(functionToReload) {
+  // add a tracking to know if all the API keys have been used
+  console.log("API index: " + apiIndex);
+  if (apiIndex < API_KEYS.length - 1) {
+    apiIndex++;
+    functionToReload();
+    return true;
+  }
+  else {
+    console.log("All the API keys have been used");
+    apiIndex = 0;
+    return false;
+  }
+}
+
+
+
 function tickerSearch(searchedValue) {
   var requestOptions = {
     method: 'GET',
@@ -9,7 +33,7 @@ function tickerSearch(searchedValue) {
   const searchResult = document.getElementById("search-results");
   searchResult.innerHTML = "";
 
-  let url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + searchedValue + "&apikey=ZPWHHJ1VEJJFZYLS";
+  let url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + searchedValue + "&apikey=" + getAPIKey();
   // url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo"
 
   fetch(url, requestOptions)
@@ -38,7 +62,14 @@ function tickerSearch(searchedValue) {
       }
 
     })
-    .catch(error => { console.log('error', error) });
+    .catch(error => { 
+      if (changeAPIIndex(tickerSearch(searchedValue))) {
+        return;
+      }
+      else {
+        alert("Error: " + error);
+      }
+       });
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -208,9 +239,15 @@ function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
     })
     .catch(error => {
       console.log('error', error);
-      let stockInfoHeaderName = document.getElementById("stock-info-header-name");
-      stockInfoHeaderName.innerHTML = "There was an error loading the stock data.";
-      stopLoading();
+      if (changeAPIIndex(stockInfoScreen(tickerSearched, stockName, currency, period))) {
+        return;
+      }
+      else {
+        let stockInfoHeaderName = document.getElementById("stock-info-header-name");
+        stockInfoHeaderName.innerHTML = "There was an error loading the stock data.";
+        stopLoading();
+        alert("Error: " + error);
+      }
 
     });
 
@@ -220,10 +257,7 @@ function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
 
 var chartInstance = null;
 function createChart(period) {
-  console.log(period);
-  console.log(mapStockData);
   let filteredData = filterData(period);
-  console.log(filteredData);
   // let filteredData = mapStockData;
   let chartData = createChartData(filteredData);
 

@@ -1,18 +1,45 @@
-var stocksToWatch = ["SPY"];
-function returnStocksToWatchForURL() {
-  if (stocksToWatch.length == 0) {
-    return "";
-  }
-  else if (stocksToWatch.length == 1) {
-    return stocksToWatch[0];
-  }
+var stocksToWatch = ["SPY", "NDAQ", "MSFT", "AAPL", "AMZN", "FB", "GOOG", "TSLA", "NVDA", "PYPL", "NFLX", "ADBE"];
+// change the order of the stocks to watch randomly
+stocksToWatch.sort(() => Math.random() - 0.5);
+var API_KEYS = ["olrrHn3cOLueBfPnFFQbAPHZDZsuS3KWu9L6XcdO", "48to6hG5ktxHQp0EcBCRhkcH3EGXwhfPbJLuqlOI"];
+var apiIndex = 0;
+var errorMessageShown = false;
 
-    let stocksToWatchForURL = "";
-    stocksToWatch.forEach(stock => {
-        stocksToWatchForURL += stock + ",";
-    });
-    return stocksToWatchForURL;
+function getAPIKey() {
+  return API_KEYS[apiIndex];
 }
+
+function changeAPIIndex(functionToReload) {
+  // add a tracking to know if all the API keys have been used
+  console.log("API index: " + apiIndex);
+  if (apiIndex < API_KEYS.length - 1) {
+    apiIndex++;
+    functionToReload();
+    return true;
+  }
+  else {
+    console.log("All the API keys have been used");
+    apiIndex = 0;
+    return false;
+  }
+}
+
+
+
+// function returnStocksToWatchForURL() {
+//   if (stocksToWatch.length == 0) {
+//     return "";
+//   }
+//   else if (stocksToWatch.length == 1) {
+//     return stocksToWatch[0];
+//   }
+
+//     let stocksToWatchForURL = "";
+//     stocksToWatch.forEach(stock => {
+//         stocksToWatchForURL += stock + ",";
+//     });
+//     return stocksToWatchForURL;
+// }
 
 function beautifyDate(date) {
     // the date looks like this "2023-03-11T00:48:40.000000Z" and we want to make it look like this "11-03-2023 00:48:40"
@@ -23,10 +50,10 @@ function beautifyDate(date) {
 }
 
 
-function loadNewsFeed() {
+ async function loadNewsFeed(stockToSearch) {
     const newsContainer = document.getElementById('news-container');
   
-    fetch(`https://api.marketaux.com/v1/news/all?symbols=${returnStocksToWatchForURL()}&filter_entities=true&language=en&api_token=48to6hG5ktxHQp0EcBCRhkcH3EGXwhfPbJLuqlOI`)
+     await fetch(`https://api.marketaux.com/v1/news/all?symbols=${stockToSearch}&filter_entities=true&language=en&api_token=${getAPIKey()}`)
       .then(response => response.json())
       .then(data => {
         data = data["data"];
@@ -46,8 +73,14 @@ function loadNewsFeed() {
       })
       .catch(error => {
         console.log(error);
-        newsContainer.insertAdjacentHTML('beforeend', '<h3>Sorry, we could not load the news feed</h3>');
+        
+        if (!errorMessageShown) {
+          errorMessageShown = true;
+        newsContainer.insertAdjacentHTML('beforeend', '<h3>Sorry, we could not load the news feed</h3>');}
       });
   }
 
-loadNewsFeed();
+
+stocksToWatch.forEach(stock => {
+  loadNewsFeed(stock);
+});
