@@ -10,7 +10,7 @@ En esta práctica se han implementado varias funcionalidades en la página web S
 - En la cotización de las acciones se ha añadido un gráfico con la evolución temporal y un botón para poder seleccionar el periodo de tiempo que se quiere visualizar.
 - Se han añadido gestión de errores de las APIs, ya que al ser gratuitas, disponen de un límite de peticiones, que se alcanza muy rápido. Para intentar solucionarlo se ha implementado un sistema que dispone de varias API keys y que en caso de que una de ellas se quede sin peticiones, se cambia a otra automáticamente. Aún así, si se llega al límite de peticiones de todas las API keys, se muestra un mensaje de error.
 - Se ha mejorado la web en el móvil y ahora está más bonita.
-
+- De vez en cuando los gráficos tardan bastante en cargar y es porque se han utilizado todas las APIs, y esta intentando recargar la página hata que se elimine la restricción de uso de la API (para noticas 100 requests al día, y para la cotización de las acciones 5 por minuto (compartidas con autocompletado al buscar acciones))
 ## Uso:
 Para visualizar la página web desde un navegador se puede acceder al siguiente enlace [Stockify](https://carlos-ag.github.io/202010774-GITT-PAT-practica-3/Stockify/html/index.html)
 
