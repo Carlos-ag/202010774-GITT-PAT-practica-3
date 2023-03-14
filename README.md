@@ -6,15 +6,18 @@ En esta práctica se han implementado varias funcionalidades en la página web S
     - API de buscador de acciones con autocompletado
     - API de noticias de acciones
     - API de cotización de acciones
-- Se ha refactorizado el código para que sea más legible y mantenible y toda la lógica de los enlaces en la página web para que se pueda navegar por ella sin necesidad de recargar la página. 
+- Se ha refactorizado el código para que sea más legible y mantenible. Cuando se cambia de página el header, la sidebar y el footer no se recargan, y solo se recarga el centro de la página.
 - En la cotización de las acciones se ha añadido un gráfico con la evolución temporal y un botón para poder seleccionar el periodo de tiempo que se quiere visualizar.
 - Se han añadido gestión de errores de las APIs, ya que al ser gratuitas, disponen de un límite de peticiones, que se alcanza muy rápido. Para intentar solucionarlo se ha implementado un sistema que dispone de varias API keys y que en caso de que una de ellas se quede sin peticiones, se cambia a otra automáticamente. Aún así, si se llega al límite de peticiones de todas las API keys, se muestra un mensaje de error.
+- Se ha mejorado la web en el móvil y ahora está más bonita.
 
 ## Uso:
 Para visualizar la página web desde un navegador se puede acceder al siguiente enlace [Stockify](https://carlos-ag.github.io/202010774-GITT-PAT-practica-3/Stockify/html/index.html)
 
 ## Documentación:
 Para editarla la página web en VSCODE, hay que abrir la carpeta Stockify, que no incluye el README.md.
+
+
 
 ## Práctica 2:
 
