@@ -1,30 +1,16 @@
 // this function is called when the user clicks on the search button
 
-var API_KEYS = ["2B176BA76YRHIWDI", "ZPWHHJ1VEJJFZYLS", "KL69KTDSTMYQ86TB", "5G7XH8VXOPD5ZNHS", "J024F2FKA2OZQ6WF", "0E8ZUXMLUG8GJGUR"]
-var apiIndex = 0;
+var API_KEYS_STOCKS = ["2B176BA76YRHIWDI", "ZPWHHJ1VEJJFZYLS", "KL69KTDSTMYQ86TB", "5G7XH8VXOPD5ZNHS", "J024F2FKA2OZQ6WF", "0E8ZUXMLUG8GJGUR"]
+var apiIndexStocks = 0;
 
-function getAPIKey() {
-  return API_KEYS[apiIndex];
-}
-
-function changeAPIIndex(functionToReload) {
-  // add a tracking to know if all the API keys have been used
-  console.log("API index: " + apiIndex);
-  if (apiIndex < API_KEYS.length - 1) {
-    apiIndex++;
-    functionToReload();
-    return true;
-  }
-  else {
-    console.log("All the API keys have been used");
-    apiIndex = 0;
-    return false;
-  }
+function getAPIKeyStocks() {
+  return API_KEYS_STOCKS[apiIndexStocks];
 }
 
 
 
 function tickerSearch(searchedValue) {
+  console.log("reloading");
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -33,7 +19,7 @@ function tickerSearch(searchedValue) {
   const searchResult = document.getElementById("search-results");
   searchResult.innerHTML = "";
 
-  let url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + searchedValue + "&apikey=" + getAPIKey();
+  let url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + searchedValue + "&apikey=" + getAPIKeyStocks();
   // url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey=demo"
 
   fetch(url, requestOptions)
@@ -63,14 +49,30 @@ function tickerSearch(searchedValue) {
 
     })
     .catch(error => { 
-      if (changeAPIIndex(tickerSearch(searchedValue))) {
-        return;
+      if (changeAPIIndexStocks()) {
+        tickerSearch(searchedValue);
       }
       else {
-        alert("Error: " + error);
+        console.log('error', error);
       }
-       });
+    });
 }
+
+function changeAPIIndexStocks() {
+  console.log("API index: " + apiIndexStocks);
+  // add a tracking to know if all the API keys have been used
+  console.log("API index: " + apiIndexStocks);
+  if (apiIndexStocks < (API_KEYS_STOCKS.length - 1)) {
+    apiIndexStocks++;
+    return true;
+  }
+  else {
+    console.log("All the API keys have been used");
+    apiIndexStocks = 0;
+    return false;
+  }
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -195,7 +197,7 @@ function stopLoading() {
 var mapStockData;
 var dates;
 
-function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
+async function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
   
   startLoading();
 
@@ -210,10 +212,14 @@ function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
 
   let url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + tickerSearched + "&outputsize=full&adjusted=true&apikey=ZPWHHJ1VEJJFZYLS";
   
-  fetch(url, requestOptions)
+  await fetch(url, requestOptions)
     .then(response => response.text())
     .then(result => {
       let data = JSON.parse(result);
+      // if {Note: 'Thank you for using Alpha Vantage! Our standard AP…would like to target a higher API call frequency.'} throw error
+      if (data.Note) {
+        throw data.Note;
+      }
 
       mapStockData = data["Time Series (Daily)"];
       dates = Object.keys(mapStockData);
@@ -239,14 +245,15 @@ function stockInfoScreen(tickerSearched, stockName, currency, period = "max") {
     })
     .catch(error => {
       console.log('error', error);
-      if (changeAPIIndex(stockInfoScreen(tickerSearched, stockName, currency, period))) {
-        return;
+      // if error data.Note, change API key
+
+      if (changeAPIIndexStocks()) {
+        stockInfoScreen(tickerSearched, stockName, currency, period);
       }
       else {
         let stockInfoHeaderName = document.getElementById("stock-info-header-name");
         stockInfoHeaderName.innerHTML = "There was an error loading the stock data.";
         stopLoading();
-        alert("Error: " + error);
       }
 
     });

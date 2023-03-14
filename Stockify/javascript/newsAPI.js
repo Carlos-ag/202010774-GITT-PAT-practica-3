@@ -1,4 +1,4 @@
-var stocksToWatch = ["SPY", "NDAQ", "MSFT", "AAPL", "AMZN", "FB", "GOOG", "TSLA", "NVDA", "PYPL", "NFLX", "ADBE"];
+var stocksToWatch = ["SPY", "MSFT", "AAPL", "AMZN", "FB", "GOOG", "TSLA", "NVDA", "PYPL", "NFLX", "ADBE"];
 // change the order of the stocks to watch randomly
 stocksToWatch.sort(() => Math.random() - 0.5);
 var API_KEYS = ["8KZJnlpVSnFGbGw2Di6Uw3E7doSpfSotzgay7yV2","olrrHn3cOLueBfPnFFQbAPHZDZsuS3KWu9L6XcdO", "48to6hG5ktxHQp0EcBCRhkcH3EGXwhfPbJLuqlOI","wTrA5KhDgUQ76JlzLIVH90C4Chqf6rXwFb7eSqYk",
@@ -6,16 +6,13 @@ var API_KEYS = ["8KZJnlpVSnFGbGw2Di6Uw3E7doSpfSotzgay7yV2","olrrHn3cOLueBfPnFFQb
 var apiIndex = 0;
 var errorMessageShown = false;
 
-function getAPIKey() {
+function getAPIKeyNews() {
   return API_KEYS[apiIndex];
 }
 
-function changeAPIIndex(functionToReload) {
-  // add a tracking to know if all the API keys have been used
-  console.log("API index: " + apiIndex);
-  if (apiIndex < API_KEYS.length - 1) {
+function changeAPIIndex() { 
+  if (apiIndex < (API_KEYS.length-1) ) {
     apiIndex++;
-    functionToReload();
     return true;
   }
   else {
@@ -54,9 +51,12 @@ function beautifyDate(date) {
  async function loadNewsFeed(stockToSearch) {
     const newsContainer = document.getElementById('news-container');
   
-     await fetch(`https://api.marketaux.com/v1/news/all?symbols=${stockToSearch}&filter_entities=true&language=en&api_token=${getAPIKey()}`)
+     await fetch(`https://api.marketaux.com/v1/news/all?symbols=${stockToSearch}&filter_entities=true&language=en&api_token=${getAPIKeyNews()}`)
       .then(response => response.json())
       .then(data => {
+        if (data["error"]) {
+          throw new Error(data["error"]["message"]);
+        }
         data = data["data"];
         data.forEach(article => {
           const articleHTML = `
@@ -73,15 +73,25 @@ function beautifyDate(date) {
         });
       })
       .catch(error => {
-        console.log(error);
+        // if this error: {"error":{"code":"usage_limit_reached","message":"The usage limit for this account has been reached."}}
+        // then change the API key
+        console.log(getAPIKeyNews());
+        if (error.message == "The usage limit for this account has been reached.") {
+          if (changeAPIIndex()) {
+            loadNewsFeed(stockToSearch);
+          }
+          else {
+            if (!errorMessageShown) {
+              errorMessageShown = true;
+              newsContainer.insertAdjacentHTML('beforeend', `<h1 class="error-message">Error loading news</h1>`);
+            }
+          }
+        }
         
-        if (!errorMessageShown) {
-          errorMessageShown = true;
-        newsContainer.insertAdjacentHTML('beforeend', '<h3>Sorry, we could not load the news feed</h3>');}
       });
   }
 
 
-stocksToWatch.forEach(stock => {
-  loadNewsFeed(stock);
-});
+Promise.all(stocksToWatch.map(stock => loadNewsFeed(stock)))
+  .then(() => console.log("All news loaded successfully"))
+  .catch(error => console.log("Error loading news:", error));
