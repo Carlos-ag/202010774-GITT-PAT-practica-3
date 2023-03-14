@@ -1,6 +1,7 @@
 // this function is called when the user clicks on the search button
 
-var API_KEYS_STOCKS = ["2B176BA76YRHIWDI", "ZPWHHJ1VEJJFZYLS", "KL69KTDSTMYQ86TB", "5G7XH8VXOPD5ZNHS", "J024F2FKA2OZQ6WF", "0E8ZUXMLUG8GJGUR"]
+// var API_KEYS_STOCKS = ["2B176BA76YRHIWDI", "ZPWHHJ1VEJJFZYLS", "KL69KTDSTMYQ86TB", "5G7XH8VXOPD5ZNHS", "J024F2FKA2OZQ6WF", "0E8ZUXMLUG8GJGUR"]
+var API_KEYS_STOCKS = ["2B176BA76YRHIWDI"]
 var apiIndexStocks = 0;
 
 function getAPIKeyStocks() {
@@ -9,8 +10,7 @@ function getAPIKeyStocks() {
 
 
 
-function tickerSearch(searchedValue) {
-  console.log("reloading");
+function tickerSearch(searchedValue) { 
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -26,6 +26,11 @@ function tickerSearch(searchedValue) {
     .then(response => response.text())
     .then(result => {
       let data = JSON.parse(result);
+      // if data = {"Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency. Thank you!"}
+      // then Raise an error
+      if (data.Note) {
+        throw new Error(data.Note);
+      }
       let matches = data.bestMatches;
       // search-results is the id of the div that will contain the search results
       for (let i = 0; i < matches.length; i++) {
@@ -53,21 +58,27 @@ function tickerSearch(searchedValue) {
         tickerSearch(searchedValue);
       }
       else {
-        console.log('error', error);
+
+
+          // create a div for each search result
+          let div = document.createElement("div");
+          div.classList.add("search-result");
+          div.innerHTML = "Ha habido un error, intentalo de nuevo en un minuto :)";
+          // 
+          searchResult.appendChild(div);
+          return;
+
       }
     });
 }
 
 function changeAPIIndexStocks() {
-  console.log("API index: " + apiIndexStocks);
   // add a tracking to know if all the API keys have been used
-  console.log("API index: " + apiIndexStocks);
   if (apiIndexStocks < (API_KEYS_STOCKS.length - 1)) {
     apiIndexStocks++;
     return true;
   }
   else {
-    console.log("All the API keys have been used");
     apiIndexStocks = 0;
     return false;
   }
@@ -244,7 +255,6 @@ async function stockInfoScreen(tickerSearched, stockName, currency, period = "ma
 
     })
     .catch(error => {
-      console.log('error', error);
       // if error data.Note, change API key
 
       if (changeAPIIndexStocks()) {

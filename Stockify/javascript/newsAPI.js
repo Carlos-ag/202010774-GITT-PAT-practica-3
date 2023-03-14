@@ -16,7 +16,6 @@ function changeAPIIndex() {
     return true;
   }
   else {
-    console.log("All the API keys have been used");
     apiIndex = 0;
     return false;
   }
@@ -75,7 +74,6 @@ function beautifyDate(date) {
       .catch(error => {
         // if this error: {"error":{"code":"usage_limit_reached","message":"The usage limit for this account has been reached."}}
         // then change the API key
-        console.log(getAPIKeyNews());
         if (error.message == "The usage limit for this account has been reached.") {
           if (changeAPIIndex()) {
             loadNewsFeed(stockToSearch);
@@ -83,7 +81,7 @@ function beautifyDate(date) {
           else {
             if (!errorMessageShown) {
               errorMessageShown = true;
-              newsContainer.insertAdjacentHTML('beforeend', `<h1 class="error-message">Error loading news</h1>`);
+              newsContainer.insertAdjacentHTML('beforeend', `<h1 class="error-message">Se ha llegado al límite de la API de noticias, por favor inténtalo de nuevo mañana.</h1>`);
             }
           }
         }
