@@ -6,7 +6,7 @@ En esta práctica se han implementado varias funcionalidades en la página web S
     - API de buscador de acciones con autocompletado
     - API de noticias de acciones
     - API de cotización de acciones
-- Se ha refactorizado el código para que sea más legible y mantenible. Cuando se cambia de página el header, la sidebar y el footer no se recargan, y solo se recarga el centro de la página.
+- Se ha refactorizado el código para que cuando se cambia de página el header, la sidebar y el footer no se recargan, y solo se recarga el centro de la página.
 - En la cotización de las acciones se ha añadido un gráfico con la evolución temporal y un botón para poder seleccionar el periodo de tiempo que se quiere visualizar.
 - Se han añadido gestión de errores de las APIs, ya que al ser gratuitas, disponen de un límite de peticiones, que se alcanza muy rápido. Para intentar solucionarlo se ha implementado un sistema que dispone de varias API keys y que en caso de que una de ellas se quede sin peticiones, se cambia a otra automáticamente. Aún así, si se llega al límite de peticiones de todas las API keys, se muestra un mensaje de error. Parece que esto solo funciona con la API de noticias ya que con la API de cotización de acciones han hecho que si las peticiones vienen del mismo ordenador parece que también la bloquean.
 - Se ha mejorado la web en el móvil y ahora está más bonita.
